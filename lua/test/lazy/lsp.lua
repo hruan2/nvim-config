@@ -34,8 +34,9 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 -- "gopls",
-                "vtsls",
-                "tailwindcss",
+                -- "vtsls",
+                -- "tailwindcss",
+                "clangd",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -120,10 +121,12 @@ return {
                         fallback()
                     end
                 end, {'i', 's'}), 
+
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
                 { name = "copilot", group_index = 2 },
+                { name = "clangd" },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
