@@ -144,6 +144,7 @@ return {
                 header = "",
                 prefix = "",
             },
+            -- virtual_text = true,
         })
     end
 }
