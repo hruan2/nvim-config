@@ -26,6 +26,30 @@ return {
             {},
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
+        
+        if vim.lsp.config then 
+            vim.lsp.config("clangd", {
+                cmd = { 'clangd', '--clang-tidy', '--background-index', '--function-arg-placeholders=0' },
+                filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
+                root_markers = {
+                    '.clangd',
+                    '.clang-tidy',
+                    '.clang-format',
+                    'compile_commands.json',
+                    'compile_flags.txt',
+                    'configure.ac', -- AutoTools
+                    '.git',
+                },
+                capabilities = {
+                    textDocument = {
+                        completion = {
+                            editsNearCursor = true,
+                        },
+                    },
+                    offsetEncoding = { 'utf-8', 'utf-16' },
+                },
+            })
+        end
 
         require("fidget").setup({})
         require("mason").setup()
@@ -98,6 +122,30 @@ return {
                         filetypes = { "html", "css", "scss", "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte", "heex" },
                     })
                 end,
+                ["clangd"] = function ()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.clangd.setup({
+                        cmd = { 'clangd', '--clang-tidy', '--background-index', '--function-arg-placeholders=0' },
+                        filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
+                        root_markers = {
+                            '.clangd',
+                            '.clang-tidy',
+                            '.clang-format',
+                            'compile_commands.json',
+                            'compile_flags.txt',
+                            'configure.ac', -- AutoTools
+                            '.git',
+                        },
+                        capabilities = {
+                            textDocument = {
+                                completion = {
+                                    editsNearCursor = true,
+                                },
+                            },
+                            offsetEncoding = { 'utf-8', 'utf-16' },
+                        },
+                    })
+                end
             }
         })
 
@@ -126,10 +174,8 @@ return {
             }),
             sources = cmp.config.sources({
                 { name = "copilot", group_index = 2 },
-                { name = "clangd" },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
-            }, {
                 { name = 'buffer' },
             })
         })
