@@ -10,13 +10,13 @@ return {
         config = function()
             local ts = require("nvim-treesitter")
             local languages = {
-                "bash", 
+                "bash",
                 "vimdoc",
                 "javascript",
                 "typescript",
                 "c",
                 "cpp",
-                -- "latex",
+                "latex",
                 "make",
                 "python",
                 "rust",
