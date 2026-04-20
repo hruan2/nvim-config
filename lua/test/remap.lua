@@ -95,3 +95,13 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
       vim.fn.setpos(".", save_cursor)
     end,
 })
+
+vim.opt.spell = false
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "plaintex", "text", "markdown", "tex" },
+    callback = function ()
+        vim.opt_local.spell = true
+        vim.opt_local.spelllang = "en_us"
+    end,
+})
