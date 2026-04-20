@@ -8,6 +8,7 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })
 
 vim.keymap.set("i", "<c-s>", function() vim.lsp.buf.signature_help() end, {buffer = true})
+vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 
 vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
