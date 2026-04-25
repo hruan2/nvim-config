@@ -96,8 +96,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end,
 })
 
-vim.opt.spell = false
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "plaintex", "text", "markdown", "tex" },
     callback = function ()
