@@ -26,8 +26,8 @@ return {
             {},
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
-        
-        if vim.lsp.config then 
+
+        if vim.lsp.config then
             vim.lsp.config("clangd", {
                 cmd = { 'clangd', '--clang-tidy', '--background-index', '--function-arg-placeholders=0' },
                 filetypes = { 'c', 'cpp', 'objc', 'objcpp' },
@@ -61,6 +61,9 @@ return {
                 -- "vtsls",
                 -- "tailwindcss",
                 "clangd",
+                "texlab",
+                "ruff",
+                "basedpyright"
             },
             handlers = {
                 function(server_name) -- default handler (optional)
@@ -163,22 +166,29 @@ return {
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
-                    elseif require('luasnip').expand_or_jumpable() then 
+                    elseif require('luasnip').expand_or_jumpable() then
                         vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
-                    else 
+                    else
                         fallback()
                     end
-                end, {'i', 's'}), 
+                end, {'i', 's'}),
 
                 ["<C-Space>"] = cmp.mapping.complete(),
             }),
             sources = cmp.config.sources({
-                { name = "copilot", group_index = 2 },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
                 { name = 'buffer' },
             })
         })
+
+        -- install cmp-vimtex to enable this
+        -- cmp.setup.filetype("tex", {
+        --     sources = {
+        --         { name = 'vimtex' },
+        --         { name = 'buffer' },
+        --     },
+        -- })
 
         vim.diagnostic.config({
             -- update_in_insert = true,
