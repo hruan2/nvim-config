@@ -36,6 +36,7 @@ return {
                 "json5",
                 "nasm",
                 "regex",
+                "linkerscript",
             }
 
             ts.setup({})
