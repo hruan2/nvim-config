@@ -33,6 +33,7 @@ vim.opt.colorcolumn = "80"
 vim.filetype.add {
     extension = {
         x64 = "ld.x64",
+        inc = "ld.inc",
     },
 }
-vim.treesitter.language.register('linkerscript', { 'ld.x64' })
+vim.treesitter.language.register('linkerscript', { 'ld.x64', 'ld.inc' })
