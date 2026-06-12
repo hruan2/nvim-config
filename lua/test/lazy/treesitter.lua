@@ -37,7 +37,6 @@ return {
                 "nasm",
                 "regex",
                 "linkerscript",
-                "bash",
             }
 
             ts.setup({})
