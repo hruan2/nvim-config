@@ -7,6 +7,19 @@ vim.pack.add({
     },
     { load = true })
 
+
+local cmp_lsp = require('cmp_nvim_lsp')
+local capabilities = vim.tbl_deep_extend(
+    'force',
+    {},
+    vim.lsp.protocol.make_client_capabilities(),
+    cmp_lsp.default_capabilities()
+)
+
+vim.lsp.config('*', {
+    capabilities = capabilities,
+})
+
 local lsp_servers = {
     'basedpyright',
     'bashls',
@@ -67,6 +80,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 vim.lsp.document_color.enable(true, { bufnr = buf })
             end
 
+            if client:supports_method('textDocument/declaration', buf) then
+                vim.api.nvim_buf_set_keymap(buf, 'n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
+            end
+
+            if client:supports_method('textDocument/definition', buf) then
+                vim.api.nvim_buf_set_keymap(buf, 'n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+            end
+
             -- Format on typing trigger characters
             -- NOTE: I think I rather use conform.nvim as otherwise this yields unexpected results.
             -- if client:supports_method('textDocument/onTypeFormatting', buf) then
@@ -82,8 +103,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
             return vim.fn.pumvisible() == 1 and '<C-n>' and '<C-y>' or '<Tab>'
         end, { expr = true })
         vim.keymap.set('i', "<c-s>", function() vim.lsp.buf.signature_help() end, {buffer = true})
-        vim.api.nvim_buf_set_keymap(buf, 'n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
-        vim.api.nvim_buf_set_keymap(buf, 'n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
         -- vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { buffer = buf, desc = "Rename" })
         -- vim.keymap.set('n', "<leader>cR", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
         vim.keymap.set({ 'n', "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "Code action" })

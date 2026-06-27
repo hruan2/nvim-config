@@ -26,13 +26,6 @@ vim.pack.add({
 })
 
 local cmp = require('cmp')
--- local cmp_lsp = require('cmp-lsp')
--- local capabilities = vim.tbl_deep_extend(
---     'force',
---     {},
---     vim.lsp.protocol.make_client_capabilities(),
---     cmp_lsp.default_capabilities()
--- )
 
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
