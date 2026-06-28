@@ -13,40 +13,46 @@ vim.pack.add({
         name = 'nvim-treesitter'
     },
     {
+        src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects',
+        name = 'nvim-treesitter-textobjects',
+    },
+    {
         src = 'https://github.com/nvim-treesitter/nvim-treesitter-context',
         name = 'treesitter-context'
     },
 })
 
+-- Disable entire built-in ftplugin mappings to avoid conflicts.
+vim.g.no_plugin_maps = true
+
 local ts = require('nvim-treesitter')
 local languages = {
+    'asm',
     'bash',
-    'vimdoc',
-    'javascript',
-    'typescript',
     'c',
     'cpp',
-    'latex',
-    'make',
-    'python',
-    'rust',
-    'sql',
-    'asm',
-    'lua',
-    'rust',
-    'jsdoc',
-    'go',
     'dockerfile',
-    'git_config',
-    'git_rebase',
     'gitattributes',
     'gitcommit',
     'gitignore',
+    'git_config',
+    'git_rebase',
+    'go',
+    'javascript',
+    'jsdoc',
     'json',
     'json5',
-    'nasm',
-    'regex',
+    'latex',
     'linkerscript',
+    'lua',
+    'make',
+    'nasm',
+    'python',
+    'regex',
+    'rust',
+    'sql',
+    'typescript',
+    'vimdoc',
 }
 
 ts.setup({})
@@ -84,3 +90,11 @@ require('treesitter-context').setup({
     zindex = 20, -- The Z-index of the context window
     on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 })
+
+vim.filetype.add {
+    extension = {
+        x64 = "ld.x64",
+        inc = "ld.inc",
+    },
+}
+vim.treesitter.language.register('linkerscript', { 'ld.x64', 'ld.inc' })
