@@ -1,10 +1,10 @@
 vim.api.nvim_create_autocmd('PackChanged', {
-      callback = function(ev)
+    callback = function(ev)
         if ev.data.spec.name == 'nvim-treesitter' then
-          vim.cmd('TSUpdate')
+            vim.cmd('TSUpdate')
         end
-      end,
-    })
+    end,
+})
 
 vim.pack.add({
     {

@@ -39,6 +39,19 @@ vim.lsp.enable(lsp_servers)
 -- Enable codelens globally
 vim.lsp.codelens.enable(true)
 
+vim.diagnostic.config({
+    -- update_in_insert = true,
+    float = {
+        focusable = false,
+        style = 'minimal',
+        border = 'rounded',
+        source = true,
+        header = '',
+        prefix = '',
+    },
+    -- virtual_text = true,
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('lsp-attach', { clear = true }),
     callback = function(args)
@@ -52,13 +65,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
             end
 
             -- LSP folding (override treesitter default from init.lua)
-            -- if client:supports_method('textDocument/foldingRange', buf) then
-            --     require('fold').lsp_foldexpr(vim.api.nvim_get_current_win())
-            -- end
+            if client:supports_method('textDocument/foldingRange', buf) then
+                require('fold').lsp_foldexpr(vim.api.nvim_get_current_win())
+            end
 
             -- Workspace diagnostics
-            -- if client:supports_method('workspace/diagnostic', buf) then
-            --     vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
+            if client:supports_method('workspace/diagnostic', buf) then
+                vim.lsp.buf.workspace_diagnostics({ client_id = client.id })
+            end
             -- else
             --     if Config.use_workspace_diagnostics_plugin then
             --         require('workspace-diagnostics').populate_workspace_diagnostics(client, buf)
@@ -97,14 +111,23 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         -- Keymaps
         -- LSP keymaps not covered by snacks picker (gd, gD, gr, gI, gt are in snacks.lua)
+        -- hover text description if available
         vim.keymap.set('n', "K", vim.lsp.buf.hover, { buffer = buf, desc = "Hover" })
+
+        -- floating error buffer
         vim.keymap.set('n', "<leader>e", function() vim.diagnostic.open_float({ focusable = true }) end)
+
+        -- code snippet completion
         vim.keymap.set('i', '<Tab>', function()
             return vim.fn.pumvisible() == 1 and '<C-n>' and '<C-y>' or '<Tab>'
         end, { expr = true })
+
+        -- get func signature while in insert mode
         vim.keymap.set('i', "<c-s>", function() vim.lsp.buf.signature_help() end, {buffer = true})
         -- vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { buffer = buf, desc = "Rename" })
         -- vim.keymap.set('n', "<leader>cR", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
+
+        -- code action?
         vim.keymap.set({ 'n', "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "Code action" })
         vim.keymap.set('n', "<leader>cc", vim.lsp.codelens.run, { buffer = buf, desc = "Run codelens" })
         vim.keymap.set({ 'n', "x" }, "<M-o>", function()
@@ -147,17 +170,4 @@ vim.api.nvim_create_autocmd('LspDetach', {
             end
         end
     end,
-})
-
-vim.diagnostic.config({
-    -- update_in_insert = true,
-    float = {
-        focusable = false,
-        style = 'minimal',
-        border = 'rounded',
-        source = true,
-        header = '',
-        prefix = '',
-    },
-    -- virtual_text = true,
 })
