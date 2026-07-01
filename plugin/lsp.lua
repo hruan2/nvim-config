@@ -114,16 +114,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- hover text description if available
         vim.keymap.set('n', "K", vim.lsp.buf.hover, { buffer = buf, desc = "Hover" })
 
-        -- floating error buffer
-        vim.keymap.set('n', "<leader>e", function() vim.diagnostic.open_float({ focusable = true }) end)
-
-        -- code snippet completion
-        vim.keymap.set('i', '<Tab>', function()
-            return vim.fn.pumvisible() == 1 and '<C-n>' and '<C-y>' or '<Tab>'
-        end, { expr = true })
-
         -- get func signature while in insert mode
         vim.keymap.set('i', "<c-s>", function() vim.lsp.buf.signature_help() end, {buffer = true})
+
         -- vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { buffer = buf, desc = "Rename" })
         -- vim.keymap.set('n', "<leader>cR", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
 
