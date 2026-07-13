@@ -24,7 +24,7 @@ local lsp_servers = {
     'basedpyright',
     'bashls',
     'clangd',
-    'jsonls',
+    -- 'jsonls',
     'lua_ls',
     'ruff',
     'rust_analyzer',

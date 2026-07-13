@@ -17,7 +17,7 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "=ap", "ma=ap'a")
 -- vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
--- vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float({ focusable = true }) end)
+vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float({ focusable = true }) end)
 
 -- vim.keymap.set("n", "<leader>vwm", function()
 --     require("vim-with-me").StartVimWithMe()
@@ -25,9 +25,9 @@ vim.keymap.set("n", "=ap", "ma=ap'a")
 -- vim.keymap.set("n", "<leader>svwm", function()
 --     require("vim-with-me").StopVimWithMe()
 -- end)
--- vim.keymap.set("n", "<leader>lt", function()
---     vim.cmd [[ PlenaryBustedFile % ]]
--- end)
+vim.keymap.set("n", "<leader>lt", function()
+    vim.cmd [[ PlenaryBustedFile % ]]
+end)
 
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
@@ -36,16 +36,16 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set("i", "<C-v>", [[<Esc>"+pa]], {noremap = true})
+vim.keymap.set("i", "<C-v>", [[<Esc>"+pa]], { noremap = true })
 
 vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
--- vim.keymap.set('i', '<Tab>', function()
---   return vim.fn.pumvisible() == 1 and '<C-n>' and '<C-y>' or '<Tab>'
--- end, { expr = true })
+vim.keymap.set('i', '<Tab>', function()
+    return vim.fn.pumvisible() == 1 and '<C-n>' and '<C-y>' or '<Tab>'
+end, { expr = true })
 
 vim.keymap.set("n", "Q", "<nop>")
 -- vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
