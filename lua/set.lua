@@ -34,9 +34,9 @@ vim.opt.colorcolumn = "80"
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = {"*"},
     callback = function()
-      local save_cursor = vim.fn.getpos(".")
-      pcall(function() vim.cmd [[%s/\s\+$//e]] end)
-      vim.fn.setpos(".", save_cursor)
+        local save_cursor = vim.fn.getpos(".")
+        pcall(function() vim.cmd [[%s/\s\+$//e]] end)
+        vim.fn.setpos(".", save_cursor)
     end,
 })
 
@@ -51,18 +51,18 @@ vim.api.nvim_create_augroup("Spellcheck", { clear = true })
 
 -- Create an autocommand to enable spellcheck for specified file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = "Spellcheck", -- Grouping the command for easier management
-  pattern = spell_types, -- Only apply to these file types
-  callback = function()
-    vim.opt_local.spell = true -- Enable spellcheck for these file types
-    vim.opt_local.spelllang = "en_us"
-  end,
-  desc = "Enable spellcheck for defined filetypes", -- Description for clarity
+    group = "Spellcheck", -- Grouping the command for easier management
+    pattern = spell_types, -- Only apply to these file types
+    callback = function()
+        vim.opt_local.spell = true -- Enable spellcheck for these file types
+        vim.opt_local.spelllang = "en_us"
+    end,
+    desc = "Enable spellcheck for defined filetypes", -- Description for clarity
 })
 
 -- Enable autoread and set up checking triggers
 vim.o.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-  command = "if mode() != 'c' | checktime | endif",
-  pattern = "*",
+    command = "if mode() != 'c' | checktime | endif",
+    pattern = "*",
 })
