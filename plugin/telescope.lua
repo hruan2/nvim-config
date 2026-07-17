@@ -6,7 +6,6 @@ vim.pack.add({
     {
         src = 'https://github.com/nvim-lua/plenary.nvim',
         name = 'plenary',
-        version = vim.version.range('*'),
     },
     {
         src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim',

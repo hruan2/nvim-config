@@ -30,6 +30,8 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
 -- Clear extraneous whitespace on saving file
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = {"*"},
