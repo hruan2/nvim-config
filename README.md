@@ -2,7 +2,7 @@ experimental neovim config refactor using vim.pack (builtin neovim package manag
 
 stole some dotfiles and formatting ideas from: https://github.com/fredrikaverpil/dotfiles
 
-to remove lazy.nvim stuff, remove the following directories:
+to remove lazy.nvim stuff, remove the following files/directories:
 
 1. ~/.local/share/nvim/lazy
 2. ~/.local/state/nvim/lazy
