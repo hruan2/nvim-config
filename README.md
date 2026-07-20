@@ -11,3 +11,7 @@ to remove lazy.nvim stuff, remove the following directories:
 to update vim.pack plugins:
 1. :packupdate
 2. :write to update, :quit to not update
+
+to delete vim.pack plugins:
+1. remove relevant plugin/<name>.lua file
+2. :packdel <plugin_name>...
