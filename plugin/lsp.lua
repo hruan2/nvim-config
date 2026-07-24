@@ -102,6 +102,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 vim.api.nvim_buf_set_keymap(buf, 'n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
             end
 
+            if client:supports_method('textDocument/codeLens', buf) then
+                vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>cc", "vim.lsp.codelens.run", { buffer = buf, noremap = true, silent = true })
+            end
+
+            if client:supports_method('textDocument/codeAction', buf) then
+                vim.api.nvim_buf_set_keymap(buf, 'n', "<leader>ca", "vim.lsp.buf.code_action", { noremap = true, silent = true })
+                vim.api.nvim_buf_set_keymap(buf, "v", "<leader>ca", "vim.lsp.buf.code_action", { noremap = true, silent = true })
+            end
+
             -- Format on typing trigger characters
             -- NOTE: I think I rather use conform.nvim as otherwise this yields unexpected results.
             -- if client:supports_method('textDocument/onTypeFormatting', buf) then
@@ -120,9 +129,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         -- vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { buffer = buf, desc = "Rename" })
         -- vim.keymap.set('n', "<leader>cR", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
 
-        -- code action?
-        vim.keymap.set({ 'n', "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "Code action" })
-        vim.keymap.set('n', "<leader>cc", vim.lsp.codelens.run, { buffer = buf, desc = "Run codelens" })
         vim.keymap.set({ 'n', "x" }, "<M-o>", function()
             vim.lsp.buf.selection_range(1)
         end, { buffer = buf, desc = 'Expand selection (LSP)' })
