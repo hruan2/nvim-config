@@ -1,2 +1,5 @@
 # MacOS DS_STORE
 .DS_Store
+
+# remove lock file to prevent annoying changes
+nvim-pack-lock.json
