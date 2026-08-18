@@ -1,9 +1,9 @@
 vim.pack.add({
-    {
-        src = 'https://github.com/neovim/nvim-lspconfig',
-        version = vim.version.range('*'),
-        name = 'lspconfig'
-    }
+        {
+            src = 'https://github.com/neovim/nvim-lspconfig',
+            version = vim.version.range('*'),
+            name = 'lspconfig'
+        }
     },
     { load = true })
 
@@ -64,9 +64,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 vim.lsp.codelens.enable(false, { bufnr = buf })
             end
 
-            -- LSP folding (override treesitter default from init.lua)
+            -- LSP folding, adopted only once the server returns ranges (see fold.lua)
             if client:supports_method('textDocument/foldingRange', buf) then
-                require('fold').lsp_foldexpr(vim.api.nvim_get_current_win())
+                require('fold').probe(client, buf)
             end
 
             -- Workspace diagnostics
@@ -95,11 +95,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
             end
 
             if client:supports_method('textDocument/declaration', buf) then
-                vim.api.nvim_buf_set_keymap(buf, 'n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
+                vim.api.nvim_buf_set_keymap(buf, 'n', "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>",
+                    { noremap = true, silent = true })
             end
 
             if client:supports_method('textDocument/definition', buf) then
-                vim.api.nvim_buf_set_keymap(buf, 'n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { noremap = true, silent = true })
+                vim.api.nvim_buf_set_keymap(buf, 'n', "gd", "<cmd>lua vim.lsp.buf.definition()<CR>",
+                    { noremap = true, silent = true })
             end
 
             -- Format on typing trigger characters
@@ -115,7 +117,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', "K", vim.lsp.buf.hover, { buffer = buf, desc = "Hover" })
 
         -- get func signature while in insert mode
-        vim.keymap.set('i', "<c-s>", function() vim.lsp.buf.signature_help() end, {buffer = true})
+        vim.keymap.set('i', "<c-s>", function() vim.lsp.buf.signature_help() end, { buffer = true })
 
         -- vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { buffer = buf, desc = "Rename" })
         -- vim.keymap.set('n', "<leader>cR", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
@@ -153,6 +155,20 @@ vim.api.nvim_create_autocmd('LspDetach', {
         local client = vim.lsp.get_client_by_id(args.data.client_id)
         if not client then
             return
+        end
+
+        -- Fall back to treesitter folding once no fold-capable client remains. The
+        -- detaching client is still listed by get_clients() here, so exclude it by id.
+        local keeps_folding = false
+        for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
+            if c.id ~= client.id and c:supports_method('textDocument/foldingRange', args.buf) then
+                keeps_folding = true
+                break
+            end
+        end
+        if not keeps_folding then
+            vim.b[args.buf].lsp_folding_ready = nil
+            require('fold').apply(args.buf)
         end
 
         local prefix = ('nvim.lsp.%s.%d'):format(client.name, client.id)

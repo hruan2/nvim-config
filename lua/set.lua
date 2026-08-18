@@ -30,6 +30,11 @@ vim.opt.updatetime = 50
 
 vim.opt.colorcolumn = "80"
 
+-- Never enter a buffer with folds closed. fold.lua opens the first buffer of a session;
+-- foldlevelstart covers every later entry, including returning to a buffer you had folded.
+-- Sessions still win: the session file sets 'foldlevel' after loading, so restored folds hold.
+vim.opt.foldlevelstart = 99
+
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Clear extraneous whitespace on saving file

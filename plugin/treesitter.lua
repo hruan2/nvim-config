@@ -59,42 +59,50 @@ ts.setup({})
 
 ts.install(languages)
 
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = languages,
-    callback = function()
-        -- Enable native Neovim treesitter highlighting
-        vim.treesitter.start()
-
-        -- Configure code folding
-        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.wo.foldmethod = 'expr'
-        vim.wo.foldlevel = 99
-
-        -- Enable treesitter-based indentation
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    end,
-})
-
-require('treesitter-context').setup({
-    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    multiwindow = false, -- Enable multiwindow support.
-    max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-    min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-    line_numbers = true,
-    multiline_threshold = 20, -- Maximum number of lines to show for a single context
-    trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-    mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
-    -- Separator between context and content. Should be a single character string, like '-'.
-    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-    separator = nil,
-    zindex = 20, -- The Z-index of the context window
-    on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-})
-
 vim.filetype.add {
     extension = {
         x64 = "ld.x64",
         inc = "ld.inc",
     },
 }
+
 vim.treesitter.language.register('linkerscript', { 'ld.x64', 'ld.inc' })
+
+require('treesitter-context').setup({
+    enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)
+    multiwindow = false,      -- Enable multiwindow support.
+    max_lines = 0,            -- How many lines the window should span. Values <= 0 mean no limit.
+    min_window_height = 0,    -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+    line_numbers = true,
+    multiline_threshold = 20, -- Maximum number of lines to show for a single context
+    trim_scope = 'outer',     -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+    mode = 'cursor',          -- Line used to calculate context. Choices: 'cursor', 'topline'
+    -- Separator between context and content. Should be a single character string, like '-'.
+    -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+    separator = nil,
+    zindex = 20,     -- The Z-index of the context window
+    on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = languages,
+    callback = function()
+        -- Enable native Neovim treesitter highlighting
+        vim.treesitter.start()
+
+        -- Configure code folding (fold.lua picks treesitter vs LSP)
+        require('fold').apply(vim.api.nvim_get_current_buf(), { reset_foldlevel = true })
+
+        -- Enable treesitter-based indentation
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+})
+
+-- Window-local options are stored per (win, buf), so a buffer displayed in a window it was
+-- not loaded in has no stored value and falls back to foldexpr=0. Re-resolve it. No pattern
+-- filter is needed: fold.apply() leaves buffers with no parser and no LSP ranges alone.
+vim.api.nvim_create_autocmd('BufWinEnter', {
+    callback = function(args)
+        require('fold').apply(args.buf)
+    end,
+})
