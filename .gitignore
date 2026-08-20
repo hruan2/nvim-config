@@ -4,4 +4,6 @@
 # remove lock file to prevent annoying changes
 nvim-pack-lock.json
 
+# claude related files
 .claude/
+CLAUDE.md
