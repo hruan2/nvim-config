@@ -11,8 +11,16 @@ vim.pack.add({
 
 require("live_server").setup({
 	default_port = 8000,
-	live_reload = { enabled = true, inject_script = true, debounce = 120, css_inject = true },
-	directory_listing = { enabled = true, show_hidden = false },
+	live_reload = {
+		enabled = true,
+		inject_script = true,
+		debounce = 120,
+		css_inject = true,
+	},
+	directory_listing = {
+		enabled = true,
+		show_hidden = false,
+	},
 })
 
 require("markdown_preview").setup({
