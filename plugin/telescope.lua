@@ -34,3 +34,5 @@ vim.keymap.set("n", "<leader>ma", builtin.keymaps, {})
 
 vim.keymap.set("n", "<leader>lr", builtin.lsp_references, {})
 vim.keymap.set("n", "<leader>ea", builtin.diagnostics, {})
+
+vim.keymap.set("n", "z=", builtin.spell_suggest, {})
