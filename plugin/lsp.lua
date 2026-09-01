@@ -7,8 +7,12 @@ vim.pack.add({
 }, { load = true })
 
 local cmp_lsp = require("cmp_nvim_lsp")
-local capabilities =
-	vim.tbl_deep_extend("force", {}, vim.lsp.protocol.make_client_capabilities(), cmp_lsp.default_capabilities())
+local capabilities = vim.tbl_deep_extend(
+	"force",
+	{},
+	vim.lsp.protocol.make_client_capabilities(),
+	cmp_lsp.default_capabilities()
+)
 
 vim.lsp.config("*", {
 	capabilities = capabilities,
@@ -79,7 +83,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			end
 
 			-- Linked editing (e.g., paired HTML tags)
-			if client:supports_method("textDocument/linkedEditingRange", buf) then
+			if
+				client:supports_method("textDocument/linkedEditingRange", buf)
+			then
 				vim.lsp.linked_editing_range.enable(true, { bufnr = buf })
 			end
 
@@ -118,7 +124,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- Keymaps
 		-- LSP keymaps not covered by snacks picker (gd, gD, gr, gI, gt are in snacks.lua)
 		-- hover text description if available
-		vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = buf, desc = "Hover" })
+		vim.keymap.set(
+			"n",
+			"K",
+			vim.lsp.buf.hover,
+			{ buffer = buf, desc = "Hover" }
+		)
 
 		-- get func signature while in insert mode
 		vim.keymap.set("i", "<c-s>", function()
@@ -129,11 +140,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- vim.keymap.set('n', "<leader>cR", Snacks.rename.rename_file, { buffer = buf, desc = "Rename file" })
 
 		-- code action?
-		vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { buffer = buf, desc = "Code action" })
-		vim.keymap.set("n", "<leader>cc", vim.lsp.codelens.run, { buffer = buf, desc = "Run codelens" })
+		vim.keymap.set(
+			{ "n", "v" },
+			"<leader>ca",
+			vim.lsp.buf.code_action,
+			{ buffer = buf, desc = "Code action" }
+		)
+		vim.keymap.set(
+			"n",
+			"<leader>cc",
+			vim.lsp.codelens.run,
+			{ buffer = buf, desc = "Run codelens" }
+		)
 		vim.keymap.set({ "n", "x" }, "<M-o>", function()
 			vim.lsp.buf.selection_range(1)
 		end, { buffer = buf, desc = "Expand selection (LSP)" })
+		vim.keymap.set("i", "<c-s>", function()
+			vim.lsp.buf.signature_help()
+		end, { buffer = true })
 		vim.keymap.set("x", "<M-i>", function()
 			vim.lsp.buf.selection_range(-1)
 		end, { buffer = buf, desc = "Shrink selection (LSP)" })
@@ -167,7 +191,10 @@ vim.api.nvim_create_autocmd("LspDetach", {
 		-- detaching client is still listed by get_clients() here, so exclude it by id.
 		local keeps_folding = false
 		for _, c in ipairs(vim.lsp.get_clients({ bufnr = args.buf })) do
-			if c.id ~= client.id and c:supports_method("textDocument/foldingRange", args.buf) then
+			if
+				c.id ~= client.id
+				and c:supports_method("textDocument/foldingRange", args.buf)
+			then
 				keeps_folding = true
 				break
 			end

@@ -44,6 +44,21 @@ require("markdown_preview").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Markdown: Start preview" })
-vim.keymap.set("n", "<leader>mps", "<cmd>MarkdownPreviewStop<cr>", { desc = "Markdown: Stop preview" })
-vim.keymap.set("n", "<leader>mpr", "<cmd>MarkdownPreviewRefresh<cr>", { desc = "Markdown: Refresh preview" })
+vim.keymap.set(
+	"n",
+	"<leader>mp",
+	"<cmd>MarkdownPreview<cr>",
+	{ desc = "Markdown: Start preview" }
+)
+vim.keymap.set(
+	"n",
+	"<leader>mps",
+	"<cmd>MarkdownPreviewStop<cr>",
+	{ desc = "Markdown: Stop preview" }
+)
+vim.keymap.set(
+	"n",
+	"<leader>mpr",
+	"<cmd>MarkdownPreviewRefresh<cr>",
+	{ desc = "Markdown: Refresh preview" }
+)

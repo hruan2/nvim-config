@@ -5,9 +5,13 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
--- vim.api.nvim_set_keymap("n", "<leader>tf", "<Plug>PlenaryTestFile", { noremap = false, silent = false })
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader>tf",
+	"<Plug>PlenaryTestFile",
+	{ noremap = false, silent = false }
+)
 
--- vim.keymap.set("i", "<c-s>", function() vim.lsp.buf.signature_help() end, {buffer = true})
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { noremap = true })
 
 vim.keymap.set("n", "J", "mzJ`z")
@@ -17,7 +21,9 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "=ap", "ma=ap'a")
 -- vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
-vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float({ focusable = true }) end)
+vim.keymap.set("n", "<leader>e", function()
+	vim.diagnostic.open_float({ focusable = true })
+end)
 
 -- vim.keymap.set("n", "<leader>vwm", function()
 --     require("vim-with-me").StartVimWithMe()
@@ -26,7 +32,7 @@ vim.keymap.set("n", "<leader>e", function() vim.diagnostic.open_float({ focusabl
 --     require("vim-with-me").StopVimWithMe()
 -- end)
 vim.keymap.set("n", "<leader>lt", function()
-    vim.cmd [[ PlenaryBustedFile % ]]
+	vim.cmd([[ PlenaryBustedFile % ]])
 end)
 
 -- greatest remap ever
@@ -38,13 +44,13 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 vim.keymap.set("i", "<C-v>", [[<Esc>"+pa]], { noremap = true })
 
-vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
-vim.keymap.set('i', '<Tab>', function()
-    return vim.fn.pumvisible() == 1 and '<C-n>' and '<C-y>' or '<Tab>'
+vim.keymap.set("i", "<Tab>", function()
+	return vim.fn.pumvisible() == 1 and "<C-n>" and "<C-y>" or "<Tab>"
 end, { expr = true })
 
 vim.keymap.set("n", "Q", "<nop>")
@@ -57,7 +63,11 @@ vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set(
+	"n",
+	"<leader>s",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]
+)
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- vim.keymap.set(

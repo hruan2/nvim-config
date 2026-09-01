@@ -28,27 +28,33 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
+vim.opt.textwidth = 80
 vim.opt.colorcolumn = "80"
 
--- Never enter a buffer with folds closed. fold.lua opens the first buffer of a session;
--- foldlevelstart covers every later entry, including returning to a buffer you had folded.
--- Sessions still win: the session file sets 'foldlevel' after loading, so restored folds hold.
+-- Never enter a buffer with folds closed. fold.lua opens the first buffer of a
+-- session; foldlevelstart covers every later entry, including returning to a
+-- buffer you had folded. Sessions still win: the session file sets 'foldlevel'
+-- after loading, so restored folds hold.
 vim.opt.foldlevelstart = 99
 
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions =
+	"blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Clear extraneous whitespace on saving file
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = {"*"},
-    callback = function()
-        local save_cursor = vim.fn.getpos(".")
-        pcall(function() vim.cmd [[%s/\s\+$//e]] end)
-        vim.fn.setpos(".", save_cursor)
-    end,
+	pattern = { "*" },
+	callback = function()
+		local save_cursor = vim.fn.getpos(".")
+		pcall(function()
+			vim.cmd([[%s/\s\+$//e]])
+		end)
+		vim.fn.setpos(".", save_cursor)
+	end,
 })
 
 -- Filetypes to enable spellcheck
-local spell_types = { "text", "plaintex", "typst", "gitcommit", "markdown", "tex" }
+local spell_types =
+	{ "text", "plaintex", "typst", "gitcommit", "markdown", "tex" }
 
 -- Set global spell option to false initially to disable it for all file types
 vim.opt.spell = false
@@ -58,18 +64,18 @@ vim.api.nvim_create_augroup("Spellcheck", { clear = true })
 
 -- Create an autocommand to enable spellcheck for specified file types
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    group = "Spellcheck", -- Grouping the command for easier management
-    pattern = spell_types, -- Only apply to these file types
-    callback = function()
-        vim.opt_local.spell = true -- Enable spellcheck for these file types
-        vim.opt_local.spelllang = "en_us"
-    end,
-    desc = "Enable spellcheck for defined filetypes", -- Description for clarity
+	group = "Spellcheck", -- Grouping the command for easier management
+	pattern = spell_types, -- Only apply to these file types
+	callback = function()
+		vim.opt_local.spell = true -- Enable spellcheck for these file types
+		vim.opt_local.spelllang = "en_us"
+	end,
+	desc = "Enable spellcheck for defined filetypes", -- Description for clarity
 })
 
 -- Enable autoread and set up checking triggers
 vim.o.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
-    command = "if mode() != 'c' | checktime | endif",
-    pattern = "*",
+	command = "if mode() != 'c' | checktime | endif",
+	pattern = "*",
 })
