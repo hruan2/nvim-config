@@ -30,7 +30,7 @@ end)
 vim.keymap.set("n", "<leader><leader>", builtin.buffers, {})
 vim.keymap.set("n", "<leader>reg", builtin.registers, {})
 vim.keymap.set("n", "<leader>io", builtin.jumplist, {})
-vim.keymap.set("n", "<leader>km", builtin.keymaps, {})
+vim.keymap.set("n", "<leader>ma", builtin.keymaps, {})
 
 vim.keymap.set("n", "<leader>lr", builtin.lsp_references, {})
 vim.keymap.set("n", "<leader>ea", builtin.diagnostics, {})
