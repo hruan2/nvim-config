@@ -28,7 +28,7 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt.textwidth = 80
+-- vim.opt.textwidth = 80
 vim.opt.colorcolumn = "80"
 
 -- Never enter a buffer with folds closed. fold.lua opens the first buffer of a
