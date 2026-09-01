@@ -16,6 +16,7 @@ stole some dotfiles and formatting ideas from: https://github.com/fredrikaverpil
 2. ```:packdel <plugin1> <plugin2> ...```
 
 ## TODO
+- [ ] get copy and paste working on ghostty with tmux over ssh
 - [ ] add and/or update descriptions of various mappings
 - [ ] customize markview
 - [ ] learn fugitive
