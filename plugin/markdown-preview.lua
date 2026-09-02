@@ -1,11 +1,11 @@
 vim.pack.add({
 	{
-		src = "https://github.com/selimacerbas/markdown-preview.nvim",
-		name = "markdown_preview",
-	},
-	{
 		src = "https://github.com/selimacerbas/live-server.nvim",
 		name = "live_server",
+	},
+	{
+		src = "https://github.com/selimacerbas/markdown-preview.nvim",
+		name = "markdown_preview",
 	},
 })
 

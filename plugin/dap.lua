@@ -1,9 +1,5 @@
 vim.pack.add({
 	{
-		src = "https://github.com/mfussenegger/nvim-dap",
-		name = "dap",
-	},
-	{
 		src = "https://github.com/rcarriga/nvim-dap-ui",
 		name = "dapui",
 	},
@@ -14,6 +10,10 @@ vim.pack.add({
 	{
 		src = "https://github.com/thehamsta/nvim-dap-virtual-text",
 		name = "nvim-dap-virtual-text",
+	},
+	{
+		src = "https://github.com/mfussenegger/nvim-dap",
+		name = "dap",
 	},
 })
 

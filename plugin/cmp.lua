@@ -1,9 +1,5 @@
 vim.pack.add({
 	{
-		src = "https://github.com/hrsh7th/nvim-cmp",
-		name = "cmp",
-	},
-	{
 		src = "https://github.com/hrsh7th/cmp-nvim-lsp",
 		name = "cmp-lsp",
 	},
@@ -22,6 +18,10 @@ vim.pack.add({
 	{
 		src = "https://github.com/saadparwaiz1/cmp_luasnip",
 		name = "cmp-luasnip",
+	},
+	{
+		src = "https://github.com/hrsh7th/nvim-cmp",
+		name = "cmp",
 	},
 })
 

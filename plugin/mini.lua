@@ -6,6 +6,4 @@ vim.pack.add({
 })
 
 -- set up icons
-require("mini.icons").setup({
-	style = "ascii",
-})
+require("mini.icons").setup()
