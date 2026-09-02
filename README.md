@@ -24,4 +24,4 @@ stole some dotfiles and formatting ideas from: https://github.com/fredrikaverpil
     - use shift key to highlight text to local clipboard
 - [ ] add and/or update descriptions of various mappings
 - [ ] customize markview?
-- [ ] learn fugitivee
+- [ ] learn fugitive
