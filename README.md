@@ -15,8 +15,13 @@ stole some dotfiles and formatting ideas from: https://github.com/fredrikaverpil
 1. remove relevant plugin/<name>.lua file
 2. ```:packdel <plugin1> <plugin2> ...```
 
+## to freshly delete and reinstall all vim.pack plugins:
+1. ```cd ~/.local/share/nvim/site/pack```
+2. ```rm -rf core``` (or all the plugin directories)
+
 ## TODO
-- [ ] get copy and paste working on ghostty with tmux over ssh
+- [X] get copy and paste working on ghostty with tmux over ssh
+    - use shift key to highlight text to local clipboard
 - [ ] add and/or update descriptions of various mappings
-- [ ] customize markview
-- [ ] learn fugitive
+- [ ] customize markview?
+- [ ] learn fugitivee
