@@ -88,6 +88,13 @@ vim.keymap.set("n", "<leader>/", function()
 	})
 end, { desc = "search for term in open files using live grep" })
 
+vim.keymap.set(
+	"n",
+	"<leader>fg",
+	":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+	{ desc = "telescope live grep with args" }
+)
+
 vim.keymap.set("n", "<leader><leader>", builtin.buffers, {})
 vim.keymap.set("n", "<leader>reg", builtin.registers, {})
 vim.keymap.set("n", "<leader>io", builtin.jumplist, {})
