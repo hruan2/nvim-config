@@ -9,24 +9,15 @@ vim.pack.add({
 	},
 })
 
-local ensure_installed = {
-	"basedpyright",
-	"bashls",
-	"clangd",
-	-- "jsonls",
-	"ruff",
-	"rust_analyzer",
-	"texlab",
-	"vimls",
-}
-
 require("mason").setup()
+
+local ensure_installed = vim.tbl_keys(Lsp_servers or {})
+vim.list_extend(ensure_installed, {
+	clang_format = {},
+	latexindent = {},
+})
 
 require("mason-lspconfig").setup({
 	ensure_installed = ensure_installed,
-	automatic_enable = {
-		exclude = {
-			"texlab",
-		},
-	},
+	automatc_enable = true,
 })
