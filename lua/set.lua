@@ -27,6 +27,9 @@ vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
+vim.opt.timeoutlen = 300
+
+vim.opt.splitright = true
 
 -- vim.opt.textwidth = 80
 vim.opt.colorcolumn = "80"
@@ -37,8 +40,42 @@ vim.opt.colorcolumn = "80"
 -- after loading, so restored folds hold.
 vim.opt.foldlevelstart = 99
 
-vim.o.sessionoptions =
+vim.opt.sessionoptions =
 	"blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+vim.diagnostic.config({
+	update_in_insert = false,
+
+	severity_sort = true,
+
+	float = {
+		border = "rounded",
+		focusable = false,
+		header = "",
+		prefix = "",
+		source = true,
+		style = "minimal",
+	},
+
+	underline = {
+		severity = {
+			min = vim.diagnostic.severity.WARN,
+		},
+	},
+
+	virtual_text = false,
+	virtual_lines = false,
+
+	jump = {
+		on_jump = function(_, bufnr)
+			vim.diagnostic.open_float({
+				bufnr = bufnr,
+				scope = "cursor",
+				focus = false,
+			})
+		end,
+	},
+})
 
 -- Clear extraneous whitespace on saving file
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -79,3 +116,31 @@ vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
 	command = "if mode() != 'c' | checktime | endif",
 	pattern = "*",
 })
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup(
+		"kickstart-highlight-yank",
+		{ clear = true }
+	),
+	callback = function()
+		vim.hl.hl_op()
+	end,
+})
+
+-- for vim.pack install hooks
+function run_build(name, cmd, cwd)
+	local result = vim.system(cmd, { cwd = cwd }):wait()
+	if result.code ~= 0 then
+		local stderr = result.stderr or ""
+		local stdout = result.stdout or ""
+		local output = stderr ~= "" and stderr or stdout
+		if output == "" then
+			output = "No output from build command."
+		end
+		vim.notify(
+			("Build failed for %s:\n%s"):format(name, output),
+			vim.log.levels.ERROR
+		)
+	end
+end
