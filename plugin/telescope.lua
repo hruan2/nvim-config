@@ -106,7 +106,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		if client then
 			if client:supports_method("textDocument/definition", buf) then
-				vim.keymap.set("n", "gd", builtin.lsp_definitions, {
+				vim.keymap.set("n", "gd", function()
+					builtin.lsp_definitions()
+				end, {
 					noremap = true,
 					silent = true,
 					desc = "lsp definitions telescope picker",

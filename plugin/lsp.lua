@@ -128,7 +128,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 					buf,
 					"n",
 					"gD",
-					"<cmd>lua vim.lsp.buf.declaration()<CR>",
+					"<cmd>lua vim.lsp.buf.declaration()<CR>zz",
 					{ noremap = true, silent = true }
 				)
 			end
@@ -138,7 +138,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 					buf,
 					"n",
 					"gd",
-					"<cmd>lua vim.lsp.buf.definition()<CR>",
+					"<cmd>lua vim.lsp.buf.definition()<CR>zz",
 					{ noremap = true, silent = true }
 				)
 			end
@@ -248,9 +248,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		vim.keymap.set("n", "[d", function()
 			vim.diagnostic.jump({ count = -1 })
+			vim.cmd("normal! zz")
 		end, { buffer = buf, desc = "Prev diagnostic" })
 		vim.keymap.set("n", "]d", function()
 			vim.diagnostic.jump({ count = 1 })
+			vim.cmd("normal! zz")
 		end, { buffer = buf, desc = "Next diagnostic" })
 	end,
 })
