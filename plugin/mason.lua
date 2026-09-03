@@ -11,6 +11,7 @@ vim.pack.add({
 
 require("mason").setup()
 
+-- this might be broken
 local ensure_installed = vim.tbl_keys(Lsp_servers or {})
 vim.list_extend(ensure_installed, {
 	clang_format = {},

@@ -22,6 +22,6 @@ stole some dotfiles and formatting ideas from: https://github.com/fredrikaverpil
 ## TODO
 - [X] get copy and paste working on ghostty with tmux over ssh
     - use shift key to highlight text to local clipboard
+- [ ] double check interaction between mason and lsp lua files
+- [ ] look at lua_ls bug that causes nvim config editing to be really slow
 - [ ] add and/or update descriptions of various mappings
-- [ ] customize markview?
-- [ ] learn fugitive
