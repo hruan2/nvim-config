@@ -17,10 +17,18 @@ conform.setup({
 			lua = true,
 			python = true,
 			c = true,
+			markdown = true,
 		}
 		local disable_filetypes = {}
 
-		if enable_filetypes[vim.bo[bufnr].filetype] then
+		local filetype = vim.bo[bufnr].filetype
+
+		if enable_filetypes[filetype] then
+			-- give markdown files longer to format
+			if filetype == "markdown" then
+				return { timeout_ms = 2000 }
+			end
+
 			return { timeout_ms = 500 }
 		else
 			return nil
@@ -38,6 +46,7 @@ conform.setup({
 		lua = { "stylua" },
 		sh = { "shfmt" },
 		tex = { "latexindent" },
+		markdown = { "prettier" },
 	},
 	formatters = {
 		clang_format = {
@@ -46,6 +55,17 @@ conform.setup({
 
 		latexindent = {
 			prepend_args = { "-l", "-m", "$FILENAME" },
+		},
+
+		prettier = {
+			prepend_args = {
+				"--config-precedence",
+				"prefer-file",
+				"--print-width",
+				"80",
+				"--prose-wrap",
+				"always",
+			},
 		},
 	},
 })
