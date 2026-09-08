@@ -128,6 +128,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
+-- set shiftwidth to 2 for markdown and text files
+vim.api.nvim_create_augroup("Indent", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+	group = "Indent",
+	pattern = { "markdown", "text" },
+	callback = function()
+		vim.opt.shiftwidth = 2
+	end,
+})
+
 -- for vim.pack install hooks
 function run_build(name, cmd, cwd)
 	local result = vim.system(cmd, { cwd = cwd }):wait()
