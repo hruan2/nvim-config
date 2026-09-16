@@ -49,9 +49,16 @@ vim.keymap.set(
 	{ desc = "Move focus to the upper window" }
 )
 
-vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "{", "{zz")
+vim.keymap.set("n", "}", "}zz")
+vim.keymap.set("n", "[d", "[dzz")
+vim.keymap.set("n", "]d", "]dzz")
+vim.keymap.set("n", "[c", "[czz")
+vim.keymap.set("n", "]c", "]czz")
+
+vim.keymap.set("n", "J", "mzJ`z")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "=ap", "ma=ap'a")
