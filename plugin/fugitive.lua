@@ -25,3 +25,23 @@ vim.keymap.set(
 	toggle_fugitive,
 	{ silent = true, desc = "toggle git status" }
 )
+
+vim.keymap.set(
+	"n",
+	"<leader>gd",
+	"<cmd>Gvdiffsplit!<CR>",
+	{ desc = "Fugitive open git vertical split" }
+)
+
+vim.keymap.set(
+	"n",
+	"<leader>gdh",
+	"<cmd>diffget //2<CR>",
+	{ desc = "Fugitive pull from left (usually target)" }
+)
+vim.keymap.set(
+	"n",
+	"<leader>gdl",
+	"<cmd>diffget //3<CR>",
+	{ desc = "Fugitive pull from right (usually to be merged branch)" }
+)
