@@ -24,12 +24,7 @@ conform.setup({
 		local filetype = vim.bo[bufnr].filetype
 
 		if enable_filetypes[filetype] then
-			-- give markdown files longer to format
-			if filetype == "markdown" then
-				return { timeout_ms = 2000 }
-			end
-
-			return { timeout_ms = 500 }
+			return { timeout_ms = 2000 }
 		else
 			return nil
 		end
