@@ -68,6 +68,7 @@ Lsp_servers = {
 	stylua = {},
 	-- tailwindcss = {},
 	texlab = {},
+	vimls = {},
 	-- vtsls = {},
 }
 

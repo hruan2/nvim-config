@@ -45,10 +45,7 @@ conform.setup({
 	},
 	formatters = {
 		clang_format = {
-			prepend_args = {
-				"--style=file",
-				"--fallback-style={BasedOnStyle:Google, ColumnLimit: 80}",
-			},
+			prepend_args = { "--style=file", "--fallback-style=Google" },
 		},
 
 		latexindent = {
