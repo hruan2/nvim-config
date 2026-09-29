@@ -5,7 +5,9 @@ vim.pack.add({
 	},
 }, { load = true })
 
-require("auto-session").setup({
+local auto_session = require("auto-session")
+
+auto_session.setup({
 	---enables autocomplete for opts
 	---@module "auto-session"
 	---@type AutoSession.Config
@@ -14,3 +16,8 @@ require("auto-session").setup({
 	git_use_branch_name = true,
 	enabled = true,
 })
+
+vim.api.nvim_create_user_command("Restart", function()
+	auto_session.SaveSession()
+	vim.cmd("restart")
+end, {})
