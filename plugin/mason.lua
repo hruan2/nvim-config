@@ -7,6 +7,10 @@ vim.pack.add({
 		src = "https://github.com/mason-org/mason-lspconfig.nvim",
 		name = "mason-lspconfig",
 	},
+	-- {
+	-- 	src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim",
+	-- 	name = "mason-tool-installer",
+	-- },
 })
 
 require("mason").setup()
@@ -22,3 +26,14 @@ require("mason-lspconfig").setup({
 	ensure_installed = ensure_installed,
 	automatc_enable = true,
 })
+
+-- local formatters = {
+-- 	prettier = {},
+-- 	shellcheck = {},
+-- 	shfmt = {},
+-- }
+--
+-- require("mason-tool-installer").setup({
+-- 	ensure_installed = formatters,
+-- 	run_on_start = true,
+-- })
