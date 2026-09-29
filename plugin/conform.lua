@@ -18,6 +18,7 @@ conform.setup({
 			python = true,
 			c = true,
 			markdown = true,
+			tex = true,
 		}
 		local disable_filetypes = {}
 
@@ -49,7 +50,7 @@ conform.setup({
 		},
 
 		latexindent = {
-			prepend_args = { "-l", "-m", "$FILENAME" },
+			prepend_args = { "-l", "-m" },
 		},
 
 		prettier = {
