@@ -43,6 +43,7 @@ conform.setup({
 		sh = { "shfmt" },
 		tex = { "latexindent" },
 		markdown = { "prettier" },
+		rust = { "rustfmt" },
 	},
 	formatters = {
 		clang_format = {
