@@ -51,7 +51,7 @@ conform.setup({
 		},
 
 		latexindent = {
-			prepend_args = { "-l", "-m" },
+			prepend_args = { "-l", "-m", "-r" },
 		},
 
 		prettier = {
