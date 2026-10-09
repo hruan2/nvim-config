@@ -128,14 +128,24 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	end,
 })
 
--- set shiftwidth to 2 for markdown and text files
+-- set shiftwidth to 2 for markdown, text, and tex files
 vim.api.nvim_create_augroup("Indent", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
 	group = "Indent",
-	pattern = { "markdown", "text" },
+	pattern = { "markdown", "text", "tex" },
 	callback = function()
 		vim.opt.shiftwidth = 2
 	end,
+})
+
+-- Continue comments on <Enter> (r) and on o/O (o)
+vim.api.nvim_create_autocmd("BufEnter", {
+	group = vim.api.nvim_create_augroup("CommentContinue", { clear = true }),
+	pattern = "*",
+	callback = function()
+		vim.opt_local.formatoptions:append({ r = true, o = true })
+	end,
+	desc = "Continue comment leader on new lines",
 })
 
 -- for vim.pack install hooks
