@@ -13,22 +13,15 @@ conform.setup({
 		-- Disable "format_on_save lsp_fallback" for languages that don't
 		-- have a well standardized coding style. You can add additional
 		-- languages here or re-enable it for the disabled ones.
-		local enable_filetypes = {
-			lua = true,
-			python = true,
-			c = true,
-			markdown = true,
-			tex = true,
-		}
 		local disable_filetypes = {}
 
 		local filetype = vim.bo[bufnr].filetype
 
-		if enable_filetypes[filetype] then
-			return { timeout_ms = 2000 }
-		else
+		if disable_filetypes[filetype] then
 			return nil
 		end
+
+		return { timeout_ms = 2000 }
 	end,
 
 	default_format_opts = {
