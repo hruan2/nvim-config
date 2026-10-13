@@ -51,8 +51,6 @@ vim.keymap.set(
 
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "{", "{zz")
-vim.keymap.set("n", "}", "}zz")
 vim.keymap.set("n", "[d", "[dzz")
 vim.keymap.set("n", "]d", "]dzz")
 vim.keymap.set("n", "[c", "[czz")
