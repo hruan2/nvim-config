@@ -49,6 +49,7 @@ conform.setup({
 		lua = { "stylua" },
 		markdown = { "prettierd" },
 		rust = { "rustfmt" },
+		python = { "ruff_organize_imports", "ruff_format" },
 		sh = { "shfmt" },
 		tex = { "latexindent" },
 		typescript = { "prettierd" },

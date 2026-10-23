@@ -19,7 +19,29 @@ vim.lsp.config("*", {
 })
 
 Lsp_servers = {
-	basedpyright = {},
+	basedpyright = {
+		settings = {
+			basedpyright = {
+				disableOrganizeImports = true, -- ruff sorts imports
+				analysis = {
+					typeCheckingMode = "recommended",
+					diagnosticMode = "openFilesOnly",
+					autoImportCompletions = true,
+					inlayHints = {
+						variableTypes = true,
+						callArgumentNames = true,
+						functionReturnTypes = true,
+						genericTypes = true,
+					},
+					-- ruff reports these (F401, F841); avoid duplicate diagnostics
+					diagnosticSeverityOverrides = {
+						reportUnusedImport = "none",
+						reportUnusedVariable = "none",
+					},
+				},
+			},
+		},
+	},
 	bashls = {},
 	clangd = {},
 	-- gopls = {},
@@ -74,7 +96,7 @@ Lsp_servers = {
 
 for name, server in pairs(Lsp_servers) do
 	vim.lsp.config(name, server)
-	vim.lsp.enable(Lsp_servers)
+	vim.lsp.enable(name)
 end
 
 -- Enable codelens globally
@@ -90,6 +112,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			-- Disable codelens for lua (lua_ls '0 References' is noisy)
 			if client.name == "lua_ls" then
 				vim.lsp.codelens.enable(false, { bufnr = buf })
+			end
+
+			-- basedpyright gives hover; ruff hover only explains noqa codes
+			if client.name == "ruff" then
+				client.server_capabilities.hoverProvider = false
 			end
 
 			-- LSP folding, adopted only once the server returns ranges (see fold.lua)
