@@ -44,11 +44,15 @@ conform.setup({
 		cpp = { "clang_format" },
 		go = { "gofmt", "goimports" },
 		html = { "djlint" },
+		javascript = { "prettierd" },
+		javascriptreact = { "prettierd" },
 		lua = { "stylua" },
-		sh = { "shfmt" },
-		tex = { "latexindent" },
 		markdown = { "prettierd" },
 		rust = { "rustfmt" },
+		sh = { "shfmt" },
+		tex = { "latexindent" },
+		typescript = { "prettierd" },
+		typescriptreact = { "prettierd" },
 	},
 	formatters = {
 		clang_format = {
