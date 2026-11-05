@@ -39,10 +39,11 @@ conform.setup({
 	default_format_opts = {
 		lsp_format = "fallback",
 	},
+
 	formatters_by_ft = {
 		c = { "clang_format" },
 		cpp = { "clang_format" },
-		go = { "gofmt", "goimports" },
+		-- go = { "gofmt", "goimports" },
 		html = { "djlint" },
 		javascript = { "prettierd" },
 		javascriptreact = { "prettierd" },
@@ -55,6 +56,7 @@ conform.setup({
 		typescript = { "prettierd" },
 		typescriptreact = { "prettierd" },
 	},
+
 	formatters = {
 		clang_format = {
 			prepend_args = { "--style=file", "--fallback-style=Google" },
@@ -71,6 +73,29 @@ conform.setup({
 				PRETTIERD_DEFAULT_CONFIG = vim.fn.stdpath("config")
 					.. "/prettierrc.json",
 			},
+
+			options = {
+				javascript = "babel",
+				javascriptreact = "babel",
+				typescript = "typescript",
+				typescriptreact = "typescript",
+				vue = "vue",
+				css = "css",
+				scss = "scss",
+				less = "less",
+				html = "html",
+				json = "json",
+				jsonc = "json",
+				yaml = "yaml",
+				markdown = "markdown",
+				["markdown.mdx"] = "mdx",
+				graphql = "graphql",
+				handlebars = "glimmer",
+			},
+		},
+
+		rustfmt = {
+			nightly = true,
 		},
 	},
 })
